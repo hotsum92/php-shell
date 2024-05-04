@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>sample</title>
+</head>
+<body>
+
+<form id="form" method="post">
+  <div id="inputs"></div>
+</form>
+
+<script>
+    const form = document.querySelector('#form');
+    const inputs = document.querySelector('#inputs');
+
+    const url = document.location;
+
+    form.action = `${url.origin}${url.pathname.split('.').slice(0, -1).join('.')}.sh`;
+
+    navigator.clipboard.readText().then(
+      (value) => {
+        const input = document.createElement('input');
+        input.name = "STDIN";
+        input.value = value;
+
+        inputs.appendChild(input);
+
+        form.submit();
+      },
+    );
+</script>
+
+</body>
+</html>
